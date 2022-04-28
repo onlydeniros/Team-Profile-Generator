@@ -4,13 +4,13 @@ const generateEngineer = function (engineer) {
     <div class="card h-100">
         <div class="card-header">
             <h3>${engineer.name}</h3>
-            <h4>Engineer</h4><i class="fa-solid fa-desktop"></i>
+            <h4>Engineer</h4><i class="fa fa-desktop"></i>
         </div>
 
         <div class="card-body">
-        <p class="id">ID:${engineer.id}</p>
-        <p class="email">Email:<a href="malito:${engineer.email}">${engineer.email}</a></p>
-        <p class="github">Github:<a href="https://github.com/${engineer.github}">${engineer.github}</a></p>
+        <p class="id"><span class="key">ID:</span> ${engineer.id}</p>
+        <p class="email"><span class="key">Email:</span> <a href="mailto:${engineer.email}">${engineer.email}</a></p>
+        <p class="github"><span class="key">Github:</span> <a href="https://github.com/${engineer.github}">${engineer.github}</a></p>
         </div>
     </div>
 </div>
@@ -23,13 +23,13 @@ const generateManager = function (manager) {
         <div class="card h-100">
             <div class="card-header">
                 <h3>${manager.name}</h3>
-                <h4>Manager</h4><i class="fa-solid fa-desktop"></i>
+                <h4>Manager</h4><i class="fa fa-address-card"></i>
             </div>
     
             <div class="card-body">
-            <p class="id">ID:${manager.id}</p>
-            <p class="email">Email:<a href="malito:${manager.email}">${manager.email}</a></p>
-            <p class="office">Office Number:${manager.officeNumber}</p>
+            <p class="id"><span class="key">ID:</span> ${manager.id}</p>
+            <p class="email"><span class="key">Email:</span> <a href="mailto:${manager.email}">${manager.email}</a></p>
+            <p class="office"><span class="key">Office Number:</span> ${manager.officeNumber}</p>
             </div>
         </div>
     </div>
@@ -42,45 +42,52 @@ const generateIntern = function (intern) {
         <div class="card h-100">
             <div class="card-header">
                 <h3>${intern.name}</h3>
-                <h4>Intern</h4><i class="fa-solid fa-desktop"></i>
+                <h4>Intern</h4><i class="fa fa-graduation-cap"></i>
             </div>
     
             <div class="card-body">
-            <p class="id">ID:${intern.id}</p>
-            <p class="email">Email:<a href="malito:${intern.email}">${intern.email}</a></p>
-            <p class="school">School:${intern.school}</p>
+            <p class="id"><span class="key">ID: </span>${intern.id}</p>
+            <p class="email"><span class="key">Email:</span> <a href="mailto:${intern.email}">${intern.email}</a></p>
+            <p class="school"><span class="key">School:</span> ${intern.school}</p>
             </div>
         </div>
     </div>
     `;
 }
 
-uploadHTML = info => {
+uploadHTML = data => {
     pageArray = [];
 
-    for (let i = 0; i < info.length; i++) {
-        const employee = info[i];
+    for (let i = 0; i < data.length; i++) {
+        const employee = data[i];
         const role = employee.getRole();
+
+        if (role === 'Manager') {
+            const managerInfo = generateManager(employee);
+            pageArray.push(managerInfo)
+        }
 
         if (role === 'Engineer') {
             const engineerInfo = generateEngineer(employee);
             pageArray.push(engineerInfo)
-        } else if (role === 'Manager') {
-            const managerInfo = generateManager(employee);
-            pageArray.push(managerInfo)
-        } else if (role === ' Intern') {
+        }
+
+        if (role === 'Intern') {
             const internInfo = generateIntern(employee);
             pageArray.push(internInfo)
         }
 
     }
-
     const collectInfo = pageArray.join('')
+
     const teamUpload = generateInfoHtml(collectInfo);
     return teamUpload;
 
 
 }
+
+
+
 
 const generateInfoHtml = function (collectInfo) {
     return `
@@ -96,7 +103,7 @@ const generateInfoHtml = function (collectInfo) {
     </head>
     <body>
         <header>
-            <nav class="navbar" id="navbar"
+            <nav class="navbar" id="navbar">
                 <span class="navbar-brand mb-0 h1 w-100 text-center" id="navbar-text">Team Profile</span>
             </nav>
         </header>
@@ -115,4 +122,4 @@ const generateInfoHtml = function (collectInfo) {
     `
 }
 
-module.exports = generateHTML;
+module.exports = uploadHTML;

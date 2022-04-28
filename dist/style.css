@@ -1,0 +1,24 @@
+header {
+    background-color: rgb(215, 212, 215);
+}
+
+#navbar-text {
+    font-size: 55px;
+    font-weight: 700;
+    color: rgb(102, 18, 180);
+    padding: 20px;
+
+}
+
+.card-header {
+    background-color: blueviolet;
+    color: rgb(253, 253, 253);
+}
+
+.key {
+    font-weight: bold;
+}
+
+.card {
+    box-shadow: 5px 5px 10px rgba(0,0,0,.5);
+}
